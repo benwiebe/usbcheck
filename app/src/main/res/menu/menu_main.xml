@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="jacob.uk.com.usbcheck.MainActivity" >
+
+    <item android:id="@+id/github"
+        android:title="@string/github"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/jacob"
+        android:title="@string/jacob"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+</menu>
