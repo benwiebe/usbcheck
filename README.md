@@ -10,7 +10,6 @@ The device must be plugged into a computer and not an AC power outlet whilst tes
 Currently supported devices:
 
 - Huawei Nexus 6P (angler)
-- LG Nexus 5X (bullhead)
 
 ###### Info
 
