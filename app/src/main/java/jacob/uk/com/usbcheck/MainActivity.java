@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 
 import jacob.uk.com.usbcheck.events.BatteryChangeEvent;
@@ -56,7 +57,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void bullheadCheck() {
         try {
-            String result = commandService.executeCommand("cat /sys/bus/i2c/drivers/fusb301/*/fclientcur");
+            //Director detection code adapted from https://gist.github.com/ghoff/53608a5f3cf746c204a3
+
+            File baseDir = new File("/sys/bus/i2c/drivers/fusb301/");
+            File[] files = baseDir.listFiles();
+            String dir = "*";
+
+            for(int i=0; i<files.length; i++){
+                if(files[i].isDirectory()){
+                    dir = files[i].getName();
+                }
+            }
+
+            String result = commandService.executeCommand("cat /sys/bus/i2c/drivers/fusb301/" + dir + "/fclientcur");
 
             if (Integer.parseInt(result) <= 1500) {
                 compliantCable();
