@@ -52,16 +52,19 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (IOException e) {
             e.printStackTrace();
+
+            //inform the user of an error instead of leaving them questioning the app
+            readError();
         }
     }
 
     public void bullheadCheck() {
         try {
-            //Director detection code adapted from https://gist.github.com/ghoff/53608a5f3cf746c204a3
+            //Directory detection code adapted from https://gist.github.com/ghoff/53608a5f3cf746c204a3
 
             File baseDir = new File("/sys/bus/i2c/drivers/fusb301/");
             File[] files = baseDir.listFiles();
-            String dir = "*";
+            String dir = "*"; //keep the wildcard in case, for some reason, something fails
 
             for(int i=0; i<files.length; i++){
                 if(files[i].isDirectory()){
@@ -78,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (IOException e) {
             e.printStackTrace();
+
+            //inform the user of an error instead of leaving them questioning the app
+            readError();
         }
     }
 
@@ -100,6 +106,17 @@ public class MainActivity extends AppCompatActivity {
         status.setImageResource(tick);
         statusText.setText("Cable is safe to use.");
         moreDetails.setText("This cable is USB-C compliant and drawing under 3As of power from the source.\n\nNot guaranteed to be 100% accurate, always apply caution when using electrical outlets.\n\nDevice: ");
+        moreDetails.append(device);
+    }
+
+    private void readError(){
+        final ImageView status = (ImageView) findViewById(R.id.status);
+        final TextView statusText = (TextView) findViewById(R.id.status_text);
+        final TextView moreDetails = (TextView) findViewById(R.id.more_details);
+
+        status.setImageResource(line);
+        statusText.setText("Failed to read current!");
+        moreDetails.setText("Something went wrong while trying to read the USB current! Try unplugging your device then plugging it back in.\n\nDevice: ");
         moreDetails.append(device);
     }
 
